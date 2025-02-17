@@ -1,8 +1,10 @@
 import { Router, type Request, type Response } from "express";
 import { Trainingmodel, GenerateImage } from "common/index";
 import { prismaClient } from "db";
+import { FalAiModel } from "../model/FalAiModel";
 
 const USER_ID = "123";
+const falAiModel = new FalAiModel();
 
 export const TrainModelHandler = async (req: Request, res: Response): Promise<void>=> {
   try {
@@ -11,6 +13,7 @@ export const TrainModelHandler = async (req: Request, res: Response): Promise<vo
       res.status(400).json({ error: "Invalid input data" });
       return;
     }
+    const {request_id, response_url} = await falAiModel.trainModel("", parsedbody.data.name)
 
     const model = await prismaClient.models.create({
       data: {
@@ -20,8 +23,8 @@ export const TrainModelHandler = async (req: Request, res: Response): Promise<vo
         ethnicity: parsedbody.data.ethnicity,
         eye: parsedbody.data.eye,
         bold: parsedbody.data.bold,
-        imageUrl: parsedbody.data.imageUrl,
         userId: USER_ID,
+        falAiRequestId: request_id
       },
     });
 
@@ -39,13 +42,16 @@ export const generateImageHandler = async (req: Request, res: Response): Promise
       return;
     }
 
+    const {request_id, response_url} = await falAiModel.generateImage(parsedbody.data.prompt, parsedbody.data.modelId)
+    
     const data = await prismaClient.outputImage.create({
       data: {
-        imageUrl: "https://picsum.photos/200/300",
+        imageUrl: response_url,
         status: "Pending",
         prompt: parsedbody.data.prompt,
         userId: USER_ID,
         modelId: parsedbody.data.modelId,
+        falAiRequestId: request_id
       },
     });
 
@@ -77,3 +83,34 @@ export const getImagesHandler = async (req: Request, res: Response): Promise<voi
 };
 
 
+
+export const webhookHandler = async (req: Request, res: Response): Promise<void> => {
+  res.json({ message: "Webhook received" });
+
+  const requestId = req.body.request_id
+   await prismaClient.models.updateMany({
+    where: {
+     falAiRequestId: requestId
+    },
+    data: {
+      trainingStatus: "Completed",
+      tensorPath: req.body.output.tensorPath,
+    }
+   })
+
+}
+
+export const webhookHandlerTrain = async (req: Request, res: Response): Promise<void> => {
+  res.json({ message: "Webhook received" });
+  const requestId = req.body.request_id
+   await prismaClient.models.updateMany({
+    where: {
+      falAiRequestId: requestId
+    },
+    data: {
+     trainingStatus: "Completed",
+     tensorPath: req.body.output.tensorPath
+    }
+   })
+    res.json({ message: "Webhook received" });
+}

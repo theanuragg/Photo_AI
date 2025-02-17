@@ -44,6 +44,7 @@ model user {
   password String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  falAiRequestId String?
 }
 
 model generatorImage {
@@ -61,11 +62,16 @@ model models {
   eye eyeColor
   bold Boolean
   userId String
-  imageUrl String[]
+  // imageUrl String[]
+  triggerWord String?
+  tensorPath String?
+  trainingStatus modelStatus @default(Pending)
   trainingData Trainingmodel[]
   outputImage outputImage[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  falAiRequestId String?
+  @@index([falAiRequestId])
 }
 
 model Trainingmodel{
@@ -80,17 +86,24 @@ enum outputStatus {
   Completed
   Failed
 }
+enum  modelStatus {
+  Pending
+  Completed
+  Failed
+}
 
 model outputImage {
   id String @id @default(uuid())
-  imageUrl String
+  imageUrl String @default("")
   modelId String
   prompt String
-  status outputStatus
+  status outputStatus @default(Pending)
   model  models @relation(fields: [modelId], references: [id])
   userId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  falAiRequestId String?
+  @@index([falAiRequestId])
 }
 
 
