@@ -1,8 +1,10 @@
-import { Router } from 'express'
-import controller from '../Controller/controller'
+import { Router } from "express";
+import { generateImageHandler, getImagesHandler, TrainModelHandler } from "../Controller/controller";
 
-const router = Router()
+const router = Router();
 
-router.use('/api', controller)
+router.post("/train", (req, res) => TrainModelHandler(req, res));
+router.post("/generate", (req, res) => generateImageHandler(req, res));
+router.get("/images", (req, res) => getImagesHandler(req, res));
 
-export default router
+export default router;

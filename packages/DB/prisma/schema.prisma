@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+enum modelType {
+  Men
+  Women
+}
+
+enum ethnicity {
+  White
+  Black
+  Asian
+  Hispanic
+  Indian
+  Other
+}
+
+enum eyeColor {
+  Blue
+  Brown
+  Green
+  Hazel
+  Gray
+  Other
+}
+
+model user {
+  id String @id @default(uuid())
+  email String @unique
+  profileImage String
+  password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model generatorImage {
+  id String @id @default(uuid())
+  imageUrl String
+}
+
+
+model models {
+  id String @id @default(uuid())
+  name String
+  type modelType
+  age Int
+  ethnicity ethnicity
+  eye eyeColor
+  bold Boolean
+  userId String
+  imageUrl String[]
+  trainingData Trainingmodel[]
+  outputImage outputImage[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Trainingmodel{
+  id String @id @default(uuid())
+  imageUrl String
+  modelId String
+  model  models @relation(fields: [modelId], references: [id])
+}
+
+enum outputStatus {
+  Pending
+  Completed
+  Failed
+}
+
+model outputImage {
+  id String @id @default(uuid())
+  imageUrl String
+  modelId String
+  prompt String
+  status outputStatus
+  model  models @relation(fields: [modelId], references: [id])
+  userId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+

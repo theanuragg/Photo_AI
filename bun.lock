@@ -15,6 +15,7 @@
       "dependencies": {
         "@types/express": "^5.0.0",
         "common": "*",
+        "db": "*",
         "express": "^4.21.2",
       },
       "devDependencies": {

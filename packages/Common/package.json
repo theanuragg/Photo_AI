@@ -7,7 +7,9 @@
   "module": "index.ts",
   "type": "module",
   "exports": {
+    "./index": "./index.ts",
     "./types": "./types.ts"
+
   },
   "devDependencies": {
     "@types/bun": "latest"
