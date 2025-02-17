@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "common/*": ["packages/Common/*"]
+    },
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "outDir": "./dist"
+  },
+  "include": ["apps/**/*", "packages/**/*"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+} 
