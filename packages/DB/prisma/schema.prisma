@@ -63,6 +63,7 @@ model models {
   bold Boolean
   userId String
   // imageUrl String[]
+  zipUrl String?
   triggerWord String?
   tensorPath String?
   trainingStatus modelStatus @default(Pending)

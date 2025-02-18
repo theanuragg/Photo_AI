@@ -2,9 +2,11 @@ import { Router, type Request, type Response } from "express";
 import { Trainingmodel, GenerateImage } from "common/index";
 import { prismaClient } from "db";
 import { FalAiModel } from "../model/FalAiModel";
+import { s3, write, S3Client } from "bun";
+
 
 const USER_ID = "123";
-const falAiModel = new FalAiModel();
+const falAiClient = new FalAiModel();
 
 export const TrainModelHandler = async (req: Request, res: Response): Promise<void>=> {
   try {
@@ -13,7 +15,7 @@ export const TrainModelHandler = async (req: Request, res: Response): Promise<vo
       res.status(400).json({ error: "Invalid input data" });
       return;
     }
-    const {request_id, response_url} = await falAiModel.trainModel("", parsedbody.data.name)
+    const {request_id, response_url} = await falAiClient.trainModel("", parsedbody.data.name)
 
     const model = await prismaClient.models.create({
       data: {
@@ -42,7 +44,7 @@ export const generateImageHandler = async (req: Request, res: Response): Promise
       return;
     }
 
-    const {request_id, response_url} = await falAiModel.generateImage(parsedbody.data.prompt, parsedbody.data.modelId)
+    const {request_id, response_url} = await falAiClient.generateImage(parsedbody.data.prompt, parsedbody.data.modelId)
     
     const data = await prismaClient.outputImage.create({
       data: {
@@ -113,4 +115,24 @@ export const webhookHandlerTrain = async (req: Request, res: Response): Promise<
     }
    })
     res.json({ message: "Webhook received" });
+}
+
+export const downloadZipHandler = async (req: Request, res: Response): Promise<void> => {
+  const zipUrl = req.body.zipUrl
+  const zip = await fetch(zipUrl)
+  const zipBuffer = await zip.arrayBuffer()
+  const zipFile = new File([zipBuffer], "model.zip", { type: "application/zip" })
+  res.json({ zipFile })
+}
+
+export const preSignedUrlHandler = async (req: Request, res: Response): Promise<void> => {
+  const key = `models/${Date.now()} ${Math.random()}.zip`
+  const Url =  S3Client.presign(key, {
+    accessKeyId: process.env.S3_ACCESS_KEY,
+    secretAccessKey: process.env.S3_SECRET_KEY,
+    endpoint: process.env.ENDPOINT_URL,
+    bucket: process.env.S3_BUCKET_NAME,
+    expiresIn: 60 * 60 * 24 * 30
+  })
+  res.json({ url: Url, key })
 }
