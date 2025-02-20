@@ -40,13 +40,13 @@ const FAQ = () => {
             {faqs.map((faq, index) => (
                 <div key={index} className="mb-2">
                     <div 
-                        className="flex justify-between items-center p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition"
+                        className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border  cursor-pointer  hover:bg-gray-100 transition"
                         onClick={() => toggleFAQ(index)}
                     >
-                        <span className="font-medium text-gray-800">{faq.question}</span>
-                        <span className="ml-2 text-gray-600">{activeIndex === index ? '▼' : '>'}</span>
+                        <span className="font-medium  text-gray-800">{faq.question}</span>
+                        <span className="ml-2 text-gray-600">{activeIndex === index ? '▼' : ''}</span>
                     </div>
-                    {activeIndex === index && <div className="p-4 bg-gray-50 rounded-lg text-gray-400">{faq.answer}</div>}
+                    {activeIndex === index && <div className="p-4 bg-gray-50 text-gray-400">{faq.answer}</div>}
                 </div>
             ))}
         </div>

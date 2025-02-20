@@ -10,6 +10,9 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+         gradient: "gradient 8s linear infinite",
+      },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
         
@@ -49,7 +52,11 @@ export default {
           "50%": { bottom: "25%", right: "40%" },
           "90%": { bottom: "50%", right: "25%" },
         },
-        
+        gradient: {
+          to: {
+            backgroundPosition: "var(--bg-size) 0",
+          },
+        }
       },
     },
   },

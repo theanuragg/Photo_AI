@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import { AuroraText } from "@/Components/ui/Tittle";
 import FAQ from "@/Components/ui/Faq";
 import   ImageSlider   from "@/Components/ui/ImageSlider";
-
+import YourComponent from "@/Components/ui/YourComponent";
+import Card from "@/Components/ui/Card";
 export default function Home() {
   const router = useRouter();
   return (
@@ -18,7 +19,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <AuroraText className="text-6xl font- font-bold">
+            <AuroraText className="text-6xl font-sigmar-regular font-extrabold">
               Vras AI
             </AuroraText>
             <p className="mt-6 text-lg md:text-xl px-4 bg-clip-text text-transparent bg-gradient-to-r from-neutral-800 via-neutral-700 to-neutral-800 dark:from-blue-100 dark:via-purple-100 dark:to-indigo-200 font-light tracking-wide">
@@ -52,6 +53,9 @@ export default function Home() {
     </div>
     <div className="bg-gray-900"> 
       <ImageSlider />
+    </div>
+    <div className=" hover:cursor-pointer">
+      <YourComponent />
     </div>
     <div>
       <FAQ />
