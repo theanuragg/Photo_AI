@@ -11,6 +11,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@multiavatar/multiavatar": "^1.0.7",
     "@radix-ui/react-slot": "^1.1.2",
     "@repo/ui": "*",
     "@tabler/icons-react": "^3.30.0",

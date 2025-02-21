@@ -12,6 +12,8 @@ export default {
     extend: {
       animation: {
          gradient: "gradient 8s linear infinite",
+         marquee: "marquee var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
       },
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
@@ -56,10 +58,19 @@ export default {
           to: {
             backgroundPosition: "var(--bg-size) 0",
           },
-        }
+        },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
       },
     },
   },
   plugins: [],
 }
+
 

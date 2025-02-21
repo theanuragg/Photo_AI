@@ -7,6 +7,7 @@ import FAQ from "@/Components/ui/Faq";
 import   ImageSlider   from "@/Components/ui/ImageSlider";
 import YourComponent from "@/Components/ui/YourComponent";
 import Card from "@/Components/ui/Card";
+import {MarqueeDemo} from "@/Components/Testimonialcard";
 export default function Home() {
   const router = useRouter();
   return (
@@ -56,6 +57,9 @@ export default function Home() {
     </div>
     <div className=" hover:cursor-pointer">
       <YourComponent />
+    </div>
+    <div>
+      <MarqueeDemo />
     </div>
     <div>
       <FAQ />

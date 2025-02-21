@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import Card from './Card';
 
@@ -17,8 +18,6 @@ const YourComponent = () => {
                     "Custom styles & colors",
                     "Instant rendering",
                 ]}
-                buttonText="Try Now"
-                onButtonClick={handleButtonClick}
                 imageSrc="/Aiimage.png" // Replace with your image path
                 imageAlt="Description of the image"
             />

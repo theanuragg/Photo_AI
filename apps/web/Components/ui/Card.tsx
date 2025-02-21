@@ -1,16 +1,15 @@
+'use client'
 import React from 'react';
-import { Button } from '@/components/ui/button';
 import { AnimatedGradientButton } from './ButtonsTrail';
 import { useRouter } from 'next/navigation';
-
+import Image from 'next/image';
 
 
 interface CardProps {
     title: string;
     description: string;
     features: string[];
-    onButtonClick: () => void;
-    imageSrc: string;
+                imageSrc: string;
     imageAlt: string;
 }
 
@@ -18,13 +17,12 @@ const Card: React.FC<CardProps> = ({
     title,
     description,
     features,
-    onButtonClick,
     imageSrc,
     imageAlt,
 }) => {
     const router = useRouter();
     return (
-        <div className="flex bg-gray-800 text-white rounded-lg shadow-lg overflow-hidden">
+        <div className="flex bg-indigo-950 text-white rounded-lg shadow-lg overflow-hidden">
             <div className="p-4 flex-1 h-80">
                 <h2 className="text-xl font-bold mb-2">{title}</h2>
                 <p className="mb-4">{description}</p>
@@ -41,7 +39,14 @@ const Card: React.FC<CardProps> = ({
                 </AnimatedGradientButton>
             </div>
             <div className="flex-shrink-0 w-96 pb-4 pt-4 pl-4">
-                <img src={imageSrc} alt={imageAlt} className="py-2 object-cover" />
+                <Image 
+                    src='/Aiimage.png'
+                    alt={imageAlt} 
+                    width={400}
+                    height={300}
+                    layout="responsive"
+                    className="py-2 object-cover" 
+                />
             </div>
         </div>
     );
