@@ -55,13 +55,13 @@ export default function Home() {
     <div className="bg-gray-900"> 
       <ImageSlider />
     </div>
-    <div className=" hover:cursor-pointer">
+    <div className=" hover:cursor-pointer pt-20">
       <YourComponent />
     </div>
-    <div>
+    <div className="pt-20">
       <MarqueeDemo />
     </div>
-    <div>
+    <div className="pt-20">
       <FAQ />
     </div>
     </div>

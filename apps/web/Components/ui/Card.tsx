@@ -22,10 +22,10 @@ const Card: React.FC<CardProps> = ({
 }) => {
     const router = useRouter();
     return (
-        <div className="flex bg-indigo-950 text-white rounded-lg shadow-lg overflow-hidden">
+        <div className="flex  rounded-lg  overflow-hidden">
             <div className="p-4 flex-1 h-80">
-                <h2 className="text-xl font-bold mb-2">{title}</h2>
-                <p className="mb-4">{description}</p>
+                <h2 className="text-2xl text-gray-800  font-serif font-bold mb-2">{title}</h2>
+                <p className="mb-4 text-gray-600">{description}</p>
                 <ul className="list-disc list-inside mb-4">
                     {features.map((feature, index) => (
                         <li key={index}>{feature}</li>
@@ -33,7 +33,7 @@ const Card: React.FC<CardProps> = ({
                 </ul>
                 <AnimatedGradientButton
                     onClick={() => { router.push('/train') }}
-                    className="ml-2 bg-indigo-950 "
+                    className="ml-2 bg-indigo-950 text-white dark:text-gray-800 "
                 >
                     Try now 💫
                 </AnimatedGradientButton>
