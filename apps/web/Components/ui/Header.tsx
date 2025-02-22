@@ -13,14 +13,26 @@ import { motion } from "framer-motion";
 //import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 export function Appbar() {
  //   const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
     useEffect(() => {
         setMounted(true);
+        const darkModePreference = localStorage.getItem('darkMode') === 'true';
+        setIsDarkMode(darkModePreference);
+        document.documentElement.classList.toggle('dark', darkModePreference);
     }, []);
+
+    const toggleDarkMode = () => {
+        const newDarkMode = !isDarkMode;
+        setIsDarkMode(newDarkMode);
+        document.documentElement.classList.toggle('dark', newDarkMode);
+        localStorage.setItem('darkMode', newDarkMode.toString());
+    };
 
     if (!mounted) return null;
 
@@ -29,7 +41,7 @@ export function Appbar() {
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className='fixed top-0 left-0 right-0 flex w-full justify-between mx-auto bg-background/50 backdrop-blur-md border-b border-primary/10 p-2 md:p-2 z-[100]'
+            className={cn('fixed top-0 left-0 right-0 flex w-full justify-between mx-auto bg-background/50 backdrop-blur-md border-b border-primary/10 p-2 md:p-2 z-[100]')}
         >
             <motion.div 
                 className='text-xl w-10 h-10 relative group cursor-pointer'
@@ -47,18 +59,18 @@ export function Appbar() {
             </motion.div>
 
             <div className='flex items-center gap-2 md:gap-4'>
-                {/* <motion.button
+                <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                    onClick={toggleDarkMode}
                     className="relative p-2 rounded-full bg-background/50 border border-primary/10 backdrop-blur-md"
                 >
-                    {theme === 'dark' ? (
+                    {isDarkMode ? (
                         <Sun className="w-5 h-5 text-yellow-500 transition-all" />
                     ) : (
                         <Moon className="w-5 h-5 text-blue-500 transition-all" />
                     )}
-                </motion.button> */}
+                </motion.button>
 
                 {/* <SignedOut>
                     <motion.div

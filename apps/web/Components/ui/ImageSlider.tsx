@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
 
 const images = [
   "/1.jpg",
@@ -10,7 +11,7 @@ const images = [
   "/4.jpg",
   "/5.jpg",
   "/6.jpg",
-  "/7.jpg",
+   "/7.jpg",
   "/8.jpg",
   "/10.jpg",
   "/11.jpg",
@@ -36,22 +37,24 @@ const images = [
   "/31.jpg",
   "/32.jpg",
   
-  
 ];
 
 export default function BackgroundSlider() {
+  const [isAnimating, setIsAnimating] = useState(true);
+
   return (
     <div className="absolute inset-0 overflow-hidden">
         
       <motion.div
         className="grid grid-cols-8 grid-rows-5 gap-8 absolute inset-0" 
         initial={{ x: "100%", y: "100%" }} 
-        animate={{ x: "-100%", y: "-100%" }}
+        animate={isAnimating ? { x: "-100%", y: "-100%" } : { x: "100%", y: "100%" }}
         transition={{
           repeat: Infinity,
           ease: "linear",
           duration: 30,
         }}
+        onAnimationComplete={() => setIsAnimating(!isAnimating)}
       >
 
         {images.concat(images).map((src, index) => (

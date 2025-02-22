@@ -6,8 +6,11 @@ import { AuroraText } from "@/Components/ui/Tittle";
 import FAQ from "@/Components/ui/Faq";
 import   ImageSlider   from "@/Components/ui/ImageSlider";
 import YourComponent from "@/Components/ui/YourComponent";
-import Card from "@/Components/ui/Card";
 import {MarqueeDemo} from "@/Components/Testimonialcard";
+import Footer from "@/Components/Footer";
+
+
+
 export default function Home() {
   const router = useRouter();
   return (
@@ -58,11 +61,14 @@ export default function Home() {
     <div className=" hover:cursor-pointer pt-20">
       <YourComponent />
     </div>
-    <div className="pt-20">
+    <div className="pt-36">
       <MarqueeDemo />
     </div>
-    <div className="pt-20">
+    <div className="pt-36 px-10">
       <FAQ />
+    </div>
+    <div className="pt-36">
+      <Footer />
     </div>
     </div>
   );
