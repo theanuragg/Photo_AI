@@ -26,7 +26,7 @@ export default function Home() {
             <AuroraText className="text-6xl font-sigmar-regular font-extrabold">
               Vras AI
             </AuroraText>
-            <p className="mt-6 text-lg md:text-xl px-4 bg-clip-text text-transparent bg-gradient-to-r from-neutral-800 via-neutral-700 to-neutral-800 dark:from-blue-100 dark:via-purple-100 dark:to-indigo-200 font-light tracking-wide">
+            <p className="mt-6 text-lg md:text-xl px-4 bg-clip-text text-transparent bg-gradient-to-r from-neutral-800 via-neutral-700 to-neutral-800 dark:from-blue-100 dark:via-purple-100 dark:to-indigo-200 font-light tracking-wide dark:text-white">
               Create stunning AI-powered images with just a few clicks.
             </p>
           </motion.div>
